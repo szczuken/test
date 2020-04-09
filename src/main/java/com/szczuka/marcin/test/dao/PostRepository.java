@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PostRepository extends CrudRepository<Post, Long> {
 
-    List<Post> findByCreator_IdOrderByTimeDesc(Long userId);
+    List<Post> findByCreator_IdOrderByTimeDesc(Long userId, Pageable pageable);
 
     List<Post> findByCreator_IdInOrderByTimeDesc(List<Long> ids, Pageable pageable);
 }

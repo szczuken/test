@@ -9,6 +9,6 @@ import com.szczuka.marcin.test.exception.UserNotExistsException;
 public interface PostService {
 
     PostDto createPost(CreatePostDto newPost) throws UserNotExistsException;
-    List<PostDto> findPostByUserId(Long userId);
+    List<PostDto> findPostByUserId(Long userId, int page);
     List<PostDto> findPostFollowedUsersByUserId(Long userId, int page) throws UserNotExistsException;
 }

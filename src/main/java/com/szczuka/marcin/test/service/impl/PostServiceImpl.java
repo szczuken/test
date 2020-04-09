@@ -2,7 +2,6 @@ package com.szczuka.marcin.test.service.impl;
 
 import static com.szczuka.marcin.test.service.MappingDtoHelper.postToPostDto;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,8 +43,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<PostDto> findPostByUserId(Long userId) {
-        return postRepository.findByCreator_IdOrderByTimeDesc(userId).stream()
+    public List<PostDto> findPostByUserId(Long userId, int page) {
+        return postRepository.findByCreator_IdOrderByTimeDesc(userId, PageRequest.of(page, PAGE_SIZE)).stream()
                 .map(MappingDtoHelper::postToPostDto)
                 .collect(Collectors.toList());
     }

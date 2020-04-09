@@ -31,8 +31,11 @@ public class PostController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<PostDto>> getUserPost(@PathVariable("userId") Long userId) {
-        return ResponseEntity.ok(postService.findPostByUserId(userId));
+    public ResponseEntity<List<PostDto>> getUserPost(
+            @PathVariable("userId") Long userId,
+            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page
+    ) {
+        return ResponseEntity.ok(postService.findPostByUserId(userId, page));
     }
 
     @GetMapping("/user/{userId}/timeline")

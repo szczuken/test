@@ -118,7 +118,7 @@ Run application
 
 **Get user posts**
 ----
-  Returns json data about all posts user created in reverse chronological order.
+  Returns json data about all posts user created in reverse chronological order. Result will contain 50 posts. Use page query param to get more. Page count starting from 0.
 
 * **URL**
 
@@ -131,6 +131,10 @@ Run application
 * **Path Params**
 
   userId
+  
+* **Path Params**
+
+  page - optional  
 
 * **Success Response:**
 
@@ -160,7 +164,7 @@ Run application
 
 **Get user timeline**
 ----
-  Returns json data about all posts which were created by followed users. Result will contain 50 posts. User page query param to get more. Page count starting from 0.
+  Returns json data about all posts which were created by followed users. Result will contain 50 posts. Use page query param to get more. Page count starting from 0.
 
 * **URL**
 
@@ -176,7 +180,7 @@ Run application
 
 * **Query Params**
 
-  page
+  page - optional
 
 * **Success Response:**
 
