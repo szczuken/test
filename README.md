@@ -122,7 +122,7 @@ Run application
 
 * **URL**
 
-  /post/user/userId
+  /post/user/{userId}
 
 * **Method:**
 
@@ -164,7 +164,7 @@ Run application
 
 * **URL**
 
-  /post/user/userId/timeline
+  /post/user/{userId}/timeline
 
 * **Method:**
 
