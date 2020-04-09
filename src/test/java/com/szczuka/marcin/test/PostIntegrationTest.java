@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.szczuka.marcin.test.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.internal.bytebuddy.utility.RandomString;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -73,6 +74,13 @@ public class PostIntegrationTest {
                 .andExpect(jsonPath("$.[0].content", is("Test content 2")))
                 .andExpect(jsonPath("$.[1].content", is("Test content")))
                 .andExpect(status().isOk());
+
+        // create too long post
+        mockMvc.perform(post("/post")
+                .content(asJsonString(getPostInput(user.getId(), RandomString.make(141))))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
 
     }
 }

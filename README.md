@@ -78,6 +78,8 @@ Run application
 
   * **Code:** 400 BAD REQUEST <br />
     **Content:** `User with id 6 does not exist.`
+  * **Code:** 400 BAD REQUEST <br />
+      When post has more than 140 signs.  
      
 * **Sample Call:**
 `POST  localhost:8080/post`
