@@ -103,6 +103,6 @@ public class TimelineIntegrationTest {
         mockMvc.perform(post("/post")
                 .content(asJsonString(getPostInput(userId, "Test content")))
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
     }
 }

@@ -36,7 +36,7 @@ public class UserIntegrationTest {
                 .content(asJsonString(getUserDto()))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", is("Bob")))
                 .andReturn();
 
@@ -47,24 +47,33 @@ public class UserIntegrationTest {
                 .content(asJsonString(getUserDto()))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", is("Bob")))
                 .andReturn();
 
         UserDto user2 = fromJsonToObject(result.getResponse().getContentAsString(), UserDto.class);
 
         // user 1 follow user 2
-        mockMvc.perform(post("/user/"+user1.getId()+"/follow/"+user2.getId())
+        mockMvc.perform(post("/user/" + user1.getId() + "/follow/" + user2.getId())
                 .content(asJsonString(getUserDto()))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
 
         // check if user 1 is following user 2
-        mockMvc.perform(get("/user/"+user1.getId()))
+        mockMvc.perform(get("/user/" + user1.getId()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.followingUsers[0]", is(user2.getId().intValue())));
+
+        // subscribe once again - expected bad request
+
+        // user 1 follow user 2
+        mockMvc.perform(post("/user/" + user1.getId() + "/follow/" + user2.getId())
+                .content(asJsonString(getUserDto()))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
 
     }
 
@@ -74,5 +83,15 @@ public class UserIntegrationTest {
         mockMvc.perform(get("/user/1"))
                 .andDo(print())
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void getUserNotExist() throws Exception {
+        // user 1 follow user 2
+        mockMvc.perform(post("/user/1/follow/2")
+                .content(asJsonString(getUserDto()))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
     }
 }

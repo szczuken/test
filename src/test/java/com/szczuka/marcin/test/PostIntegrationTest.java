@@ -41,7 +41,7 @@ public class PostIntegrationTest {
                 .content(asJsonString(getUserDto()))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", is("Bob")))
                 .andReturn();
 
@@ -52,7 +52,7 @@ public class PostIntegrationTest {
                 .content(asJsonString(getPostInput(user.getId(), "Test content")))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.content", is("Test content")))
                 .andExpect(jsonPath("$.userId", is(user.getId().intValue())))
                 .andExpect(jsonPath("$.userName", is("Bob")));
@@ -62,7 +62,7 @@ public class PostIntegrationTest {
                 .content(asJsonString(getPostInput(user.getId(), "Test content 2")))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.content", is("Test content 2")))
                 .andExpect(jsonPath("$.userId", is(user.getId().intValue())))
                 .andExpect(jsonPath("$.userName", is("Bob")));

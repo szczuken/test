@@ -8,6 +8,7 @@ import com.szczuka.marcin.test.dto.PostDto;
 import com.szczuka.marcin.test.exception.UserNotExistsException;
 import com.szczuka.marcin.test.service.PostService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,7 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<PostDto> createPost(@RequestBody @Valid CreatePostDto newPost) throws UserNotExistsException {
-        return ResponseEntity.ok(postService.createPost(newPost));
+        return ResponseEntity.status(HttpStatus.CREATED).body(postService.createPost(newPost));
     }
 
     @GetMapping("/user/{userId}")
